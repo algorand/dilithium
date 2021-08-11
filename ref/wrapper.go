@@ -63,6 +63,7 @@ func NewKeys() (DilPrivateKey, DilPublicKey) {
 
 // SignBytes receives bytes and signs over them.
 // the size of the signature should conform with dil2Signature.
+// Note: the signature verifies the size of the output signature, bad code underneath will panic.
 func (sk *DilPrivateKey) SignBytes(data []byte) []byte {
 	cdata := (*C.uchar)(C.NULL)
 	if len(data) != 0 {
