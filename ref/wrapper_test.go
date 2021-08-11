@@ -68,6 +68,7 @@ func TestEmpty(t *testing.T) {
 	sk, pk := NewKeys()
 	bs := make([]byte, 0)
 	sig := sk.SignBytes(bs)
+	a.NoError(pk.VerifyBytes(bs, sig))
 
 	sig = append(sig, 0)
 	a.Error(pk.VerifyBytes(bs[:], sig))
