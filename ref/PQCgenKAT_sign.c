@@ -57,11 +57,11 @@ main()
     randombytes_init(entropy_input, NULL, 256);
     for (int i=0; i<100; i++) {
         fprintf(fp_req, "count = %d\n", i);
-        randombytes(seed, 48);
+        dilithium_randombytes(seed, 48);
         fprintBstr(fp_req, "seed = ", seed, 48);
         mlen = 33*(i+1);
         fprintf(fp_req, "mlen = %lu\n", mlen);
-        randombytes(msg, mlen);
+        dilithium_randombytes(msg, mlen);
         fprintBstr(fp_req, "msg = ", msg, mlen);
         fprintf(fp_req, "pk =\n");
         fprintf(fp_req, "sk =\n");
