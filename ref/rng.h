@@ -4,6 +4,7 @@
 //  Created by Bassham, Lawrence E (Fed) on 8/29/17.
 //  Copyright © 2017 Bassham, Lawrence E (Fed). All rights reserved.
 //
+#ifndef DISABLERNG
 
 #ifndef rng_h
 #define rng_h
@@ -50,6 +51,7 @@ randombytes_init(unsigned char *entropy_input,
                  int security_strength);
 
 int
-randombytes(unsigned char *x, unsigned long long xlen);
+dilithium_randombytes(unsigned char *x, unsigned long long xlen);
 
 #endif /* rng_h */
+#endif

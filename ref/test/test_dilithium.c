@@ -20,7 +20,7 @@ int main(void)
   uint8_t sk[CRYPTO_SECRETKEYBYTES];
 
   for(i = 0; i < NTESTS; ++i) {
-    randombytes(m, MLEN);
+    dilithium_randombytes(m, MLEN);
 
     crypto_sign_keypair(pk, sk);
     crypto_sign(sm, &smlen, m, MLEN, sk);
@@ -45,9 +45,9 @@ int main(void)
       }
     }
 
-    randombytes((uint8_t *)&j, sizeof(j));
+    dilithium_randombytes((uint8_t *)&j, sizeof(j));
     do {
-      randombytes(&b, 1);
+      dilithium_randombytes(&b, 1);
     } while(!b);
     sm[j % (MLEN + CRYPTO_BYTES)] += b;
     ret = crypto_sign_open(m2, &mlen, sm, smlen, pk);

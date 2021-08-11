@@ -23,7 +23,7 @@ static unsigned int nttidx(unsigned int k) {
   return r;
 }
 
-void randombytes(uint8_t *out, size_t outlen) {
+void dilithium_randombytes(uint8_t *out, size_t outlen) {
   unsigned int i;
   uint8_t buf[8];
   static uint64_t ctr = 0;
@@ -51,7 +51,7 @@ int main(void) {
   for(i = 0; i < NVECTORS; ++i) {
     printf("count = %u\n", i);
 
-    randombytes(m, MLEN);
+    dilithium_randombytes(m, MLEN);
     printf("m = ");
     for(j = 0; j < MLEN; ++j)
       printf("%02x", m[j]);
@@ -79,7 +79,7 @@ int main(void) {
     if(crypto_sign_verify(sig, siglen, m, MLEN, pk))
       fprintf(stderr,"Signature verification failed!\n");
 
-    randombytes(seed, sizeof(seed));
+    dilithium_randombytes(seed, sizeof(seed));
     printf("seed = ");
     for(j = 0; j < sizeof(seed); ++j)
       printf("%02X", seed[j]);

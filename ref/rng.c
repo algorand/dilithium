@@ -4,6 +4,7 @@
 //  Created by Bassham, Lawrence E (Fed) on 8/29/17.
 //  Copyright © 2017 Bassham, Lawrence E (Fed). All rights reserved.
 //
+#ifndef DISABLERNG
 
 #include <string.h>
 #include "rng.h"
@@ -153,7 +154,7 @@ randombytes_init(unsigned char *entropy_input,
 }
 
 int
-randombytes(unsigned char *x, unsigned long long xlen)
+dilithium_randombytes(unsigned char *x, unsigned long long xlen)
 {
     unsigned char   block[16];
     int             i = 0;
@@ -211,12 +212,6 @@ AES256_CTR_DRBG_Update(unsigned char *provided_data,
     memcpy(Key, temp, 32);
     memcpy(V, temp+32, 16);
 }
+#endif
 
-
-
-
-
-
-
-
-
+int rng_nothing(void);

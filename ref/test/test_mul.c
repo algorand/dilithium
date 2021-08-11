@@ -27,7 +27,7 @@ int main(void) {
   uint16_t nonce = 0;
   poly a, b, c, d;
 
-  randombytes(seed, sizeof(seed));
+  dilithium_randombytes(seed, sizeof(seed));
   for(i = 0; i < NTESTS; ++i) {
     poly_uniform(&a, seed, nonce++);
     poly_uniform(&b, seed, nonce++);
