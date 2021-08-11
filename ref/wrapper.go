@@ -23,7 +23,7 @@ import "errors"
 
 //#cgo CFLAGS:  -O3 -Wextra -Wno-unused-parameter  -Wpedantic -fomit-frame-pointer -Wshadow -Wvla -Wpointer-arith -Wredundant-decls
 //#cgo CFLAGS: -DDILITHIUM_MODE=3
-//#cgo CFLAGS: -DNOSSL
+//#cgo CFLAGS: -DDISABLERNG
 //#include "api.h"
 import "C"
 
