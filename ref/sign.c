@@ -22,18 +22,37 @@
 **************************************************/
 int crypto_sign_keypair(uint8_t *pk, uint8_t *sk) {
   uint8_t seedbuf[2*SEEDBYTES + CRHBYTES];
-  uint8_t tr[SEEDBYTES];
   const uint8_t *rho, *rhoprime, *key;
-  polyvecl mat[K];
-  polyvecl s1, s1hat;
-  polyveck s2, t1, t0;
 
   /* Get randomness for rho, rhoprime and key */
   dilithium_randombytes(seedbuf, SEEDBYTES);
   shake256(seedbuf, 2*SEEDBYTES + CRHBYTES, seedbuf, SEEDBYTES);
-  rho = seedbuf;
-  rhoprime = rho + SEEDBYTES;
+  rho = seedbuf;              // 32 bytes
+  rhoprime = rho + SEEDBYTES; // 64 bytes
+  key = rhoprime + CRHBYTES;  // 32 bytes
+
+  return crypto_sign_keypair_params(pk, sk, rho, rhoprime, key);
+}
+
+int crypto_sign_keypair_rho(uint8_t *pk, uint8_t *sk, const uint8_t *rho) {
+  uint8_t seedbuf[SEEDBYTES + CRHBYTES];
+  const uint8_t *rhoprime, *key;
+
+  /* Get randomness for rhoprime and key */
+  randombytes(seedbuf, SEEDBYTES);
+  shake256(seedbuf, SEEDBYTES + CRHBYTES, seedbuf, SEEDBYTES);
+  rhoprime = seedbuf;
   key = rhoprime + CRHBYTES;
+
+  return crypto_sign_keypair_params(pk, sk, rho, rhoprime, key);
+}
+
+int crypto_sign_keypair_params(uint8_t *pk, uint8_t *sk, const uint8_t *rho, const uint8_t *rhoprime, const uint8_t *key) {
+  uint8_t tr[SEEDBYTES];
+  polyvecl mat[K];
+  polyvecl s1, s1hat;
+  polyveck s2, t1, t0;
+
 
   /* Expand matrix */
   polyvec_matrix_expand(mat, rho);
